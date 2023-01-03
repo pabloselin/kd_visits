@@ -18,7 +18,7 @@ function VisitsApp() {
             id: visit.id,
             visitor_data: visit.data,
             ip: visit.ip,
-            time: new Date(visit.time)
+            time: new Date(visit.time),
           });
         });
 
@@ -29,7 +29,14 @@ function VisitsApp() {
 
   return (
     <div>
-      <button onClick={() => setPalimpsesto(!palimpsesto)}>{palimpsesto === true? "Desactivar" : "Activar"}</button>
+      <h1>Representación de visitas a una web</h1>
+      <p>
+        Cada símbolo representa una visita, el tono del color es determinado por
+        el mes de la visita, la luminosidad corresponde a la hora de la visita.
+      </p>
+      <button onClick={() => setPalimpsesto(!palimpsesto)}>
+        {palimpsesto === true ? "Desactivar" : "Activar"}
+      </button>
       {visits && (
         <>
           {visits.length} visitas registradas. <TrackVisit />

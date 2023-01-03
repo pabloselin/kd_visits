@@ -32,19 +32,10 @@ const VisitsCanvas = (props) => {
         {props.visits.map((visit, index) => {
           return (
             <VisitFigure
+              isMoving={props.palimpsesto}
               data={visit}
               time={visit.time}
               key={index}
-              x={setX(
-                index,
-                visit.visitor_data.performance_data.timing.domInteractive
-              )}
-              y={
-                index *
-                timingToPosition(
-                  visit.visitor_data.performance_data.timing.domInteractive
-                )
-              }
               width={size[0]}
               height={size[1]}
             />

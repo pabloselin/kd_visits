@@ -1,33 +1,73 @@
 import { useState, useRef, useEffect } from "react";
 import { Line, Text, Rect, Group } from "react-konva";
 
+const randomPos = () => {
+  return [
+    Math.random() * (window.innerWidth - 15) + 15,
+    Math.random() * (window.innerHeight - 15) + 15,
+  ];
+};
+
 const VisitFigure = (props) => {
   const [hour, setHour] = useState(props.time.getHours());
   const [month, getMonth] = useState(props.time.getMonth());
   const [isMouseOver, setIsMouseOver] = useState(false);
-  const [pos, setPos] = useState([0, 0]);
+  const [pos, setPos] = useState(randomPos());
 
-  const LineRef = useRef(null);
+  const LineRef = useRef();
 
-  useEffect(() => {
-    setPos(randomPos());
-  }, []);
+  const randomMovement = () => {
+    if (LineRef.current) {
+      const lineTween = LineRef.current.to({
+        x: randomPos()[0],
+        y: randomPos()[1],
+        scaleX: 1 + Math.random(),
+        scaleY: 1 + Math.random(),
+        points: randomPoints(),
+        duration: 5 + Math.random() * 2,
+        onFinish: () => {
+          if(props.isMoving === true) {
+            randomMovement();
+            } else {
+                console.log('finish');
+            }
+        },
+      });
+    }
+  };
+
+  const randomPoints = () => {
+    
+      const newPoints = [];
+
+      shapePoints().map((point) => {
+        newPoints.push(point + Math.random() * 1);
+      });
+
+      console.log(newPoints);
+
+        return newPoints;
+  };
 
   const reduceTime = (time) => {
     return time * 0.0000000001;
   };
 
   const shapePoints = () => {
-    let pos1, pos2, pos3, pos4, pos5 = new Array();
-    
+    let pos1,
+      pos2,
+      pos3,
+      pos4,
+      pos5 = new Array();
+
     pos1 = [0, 0];
     pos2 = [5, -5];
     pos3 = [15, 0];
-    pos4 = [7.5, 15];
+    pos4 = [7.5, 12];
     pos5 = [2.5, 15];
 
     return [...pos1, ...pos2, ...pos3, ...pos4, ...pos5];
-  }
+  };
 
   const hourToLuminosity = (hour) => {
     console.log(hour);
@@ -38,21 +78,23 @@ const VisitFigure = (props) => {
     return (360 / 12) * month;
   };
 
-  const randomPos = () => {
-    return [
-      Math.random() * (window.innerWidth - 15) + 15,
-      Math.random() * (window.innerHeight - 15) + 15,
-    ];
-  };
-
   const handleMouseOver = (e) => {
     console.log(e.target.index);
-    setIsMouseOver(true);
+    //setIsMouseOver(true);
   };
+
+  useEffect(() => {
+    setPos(randomPos());
+    randomMovement();
+    randomPoints();
+    console.log(LineRef);
+  }, [props.isMoving]);
+
 
   return (
     <>
       <Line
+        ref={LineRef}
         x={pos[0]}
         y={pos[1]}
         width={15}
@@ -68,7 +110,13 @@ const VisitFigure = (props) => {
       />
       {isMouseOver && (
         <Group>
-          <Rect x={pos[0] + 15} y={pos[1] + 15} width={20} height={20} fill="white" />
+          <Rect
+            x={pos[0] + 15}
+            y={pos[1] + 15}
+            width={20}
+            height={20}
+            fill="white"
+          />
           <Text
             x={pos[0] + 15}
             y={pos[1] + 15}
