@@ -28,22 +28,20 @@ function VisitsApp() {
   }, [visits]);
 
   return (
-    <div>
+    <main className="main">
       <h1>Representación de visitas a una web</h1>
       <p>
         Cada símbolo representa una visita, el tono del color es determinado por
         el mes de la visita, la luminosidad corresponde a la hora de la visita.
       </p>
-      <button onClick={() => setPalimpsesto(!palimpsesto)}>
-        {palimpsesto === true ? "Desactivar" : "Activar"}
-      </button>
+      
       {visits && (
         <>
           {visits.length} visitas registradas. <TrackVisit />
           <VisitCanvas palimpsesto={palimpsesto} visits={visits} />
         </>
       )}
-    </div>
+    </main>
   );
 }
 

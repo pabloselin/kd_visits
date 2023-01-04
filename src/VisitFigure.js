@@ -16,37 +16,28 @@ const VisitFigure = (props) => {
 
   const LineRef = useRef();
 
-  const randomMovement = () => {
+  const randomMovement = (isMoving) => {
     if (LineRef.current) {
       const lineTween = LineRef.current.to({
         x: randomPos()[0],
         y: randomPos()[1],
-        scaleX: 1 + Math.random(),
-        scaleY: 1 + Math.random(),
         points: randomPoints(),
-        duration: 5 + Math.random() * 2,
+        duration: isMoving ? 1 : 5 + Math.random() * 2,
         onFinish: () => {
-          if(props.isMoving === true) {
-            randomMovement();
-            } else {
-                console.log('finish');
-            }
+          randomMovement();
         },
       });
     }
   };
 
   const randomPoints = () => {
-    
-      const newPoints = [];
+    const newPoints = [];
 
-      shapePoints().map((point) => {
-        newPoints.push(point + Math.random() * 1);
-      });
+    shapePoints().map((point) => {
+      newPoints.push(point + Math.random() * 1);
+    });
 
-      console.log(newPoints);
-
-        return newPoints;
+    return newPoints;
   };
 
   const reduceTime = (time) => {
@@ -70,7 +61,6 @@ const VisitFigure = (props) => {
   };
 
   const hourToLuminosity = (hour) => {
-    console.log(hour);
     return 100 - (100 / 23) * hour;
   };
 
@@ -85,11 +75,9 @@ const VisitFigure = (props) => {
 
   useEffect(() => {
     setPos(randomPos());
-    randomMovement();
+    randomMovement(props.isMoving);
     randomPoints();
-    console.log(LineRef);
   }, [props.isMoving]);
-
 
   return (
     <>

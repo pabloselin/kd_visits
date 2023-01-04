@@ -5,19 +5,7 @@ import VisitFigure from "./VisitFigure";
 const VisitsCanvas = (props) => {
 
   const [size, setSize] = useState([10, 10]); 
-
-  const timingToPosition = (timing) => {
-    return timing * 0.00000000001;
-  };
-
-  const setX = (initialX, timing) => {
-    if (props.palimpsesto === true) {
-        return 0;
-    } else {
-        return initialX * 10;
-    }
-  };
-
+  
   useEffect(() => {
     if(props.palimpsesto === true) {
       setSize([100, 100]);
