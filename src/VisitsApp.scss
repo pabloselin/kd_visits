@@ -1,3 +1,44 @@
-h1 {
-    font-size: 2rem;
+
+
+.hidden {
+    display: none;
+}
+
+header.fixed_kit_header {
+    position: fixed;
+    background-color: white;
+    border-bottom: 1px solid #000;
+    left: 0;
+    padding: 12px;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    font-size: .8rem;
+    h1 {
+        font-size: 1rem;
+    }
+
+    h2 {
+        font-size: 1rem;
+    }
+}
+
+.infoToggle {
+    cursor: pointer;
+}
+
+span.tracked {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: block;
+    padding: 3px;
+    font-size: .6rem;
+    text-align: left;
+    width: 100px;
+}
+
+.urlInfo {
+    background-color: #f0f0f0;
+    font-family: monospace;
 }
