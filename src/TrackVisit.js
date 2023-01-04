@@ -32,7 +32,7 @@ const TrackVisit = () => {
     }
   }, [isPosted, visitorData, performanceData]);
 
-  return <p className="tracked">Visita registrada</p>;
+  return <span className="tracked">Visita registrada</span>;
 };
 
 export default TrackVisit;
