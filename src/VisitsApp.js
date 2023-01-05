@@ -34,7 +34,7 @@ function VisitsApp() {
     <main className="main VisitsApp">
       <header className="fixed_kit_header">
       <h1>Representación de visitas a una web <span className="infoToggle" onClick={() => setInfoVisible(!infoVisible)}>[?]</span></h1>
-      {visits && <p>{visits.length} visitas registradas a <span className="urlInfo">{window.location.href}</span></p>} <TrackVisit />
+      {visits && <p>{visits.length} visitas registradas a <span className="urlInfo">{window.location.href}</span><TrackVisit /></p>} 
       <div className={`info ${infoVisible ? 'expanded' : 'hidden'}`}>
       <h2>Notas</h2>
       <p>

@@ -15,7 +15,7 @@ const VisitsCanvas = (props) => {
   }, [props.palimpsesto]);
 
   return (
-    <Stage width={window.innerWidth - 100} height={window.innerHeight - 100}>
+    <Stage className="kd_konva_canvas" width={window.innerWidth} height={window.innerHeight}>
       <Layer>
         {props.visits.map((visit, index) => {
           return (

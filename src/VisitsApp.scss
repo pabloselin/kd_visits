@@ -4,6 +4,11 @@
     display: none;
 }
 
+main {
+    padding: 0;
+    overflow: hidden;
+}
+
 header.fixed_kit_header {
     position: fixed;
     background-color: white;
