@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-const TrackVisit = () => {
+const TrackVisit = (props) => {
   const [isPosted, setIsPosted] = useState(false);
 
   const visitorData = {
@@ -19,6 +19,8 @@ const TrackVisit = () => {
       console.log(isPosted);
       axios
         .post(postURL, {
+          siteid: props.siteid,
+          url: props.trackurl,
           visitor_data: visitorData,
           performance_data: performanceData,
         })

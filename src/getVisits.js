@@ -1,18 +1,24 @@
 import axios from "axios";
 
-const getVisits = () => {
-    const visitsURL = "/visits_backend/visits_tracking.php?getvisits";
-    const visits = axios
-        .get(visitsURL)
-        .then((response) => {
-        return response;
-        })
-        .catch((error) => {
-        console.log(error);
-        return error;
-        });
+const getVisits = (siteid) => {
+  const visitsURL = `/visits_backend/visits_tracking.php?getvisits&siteid=${siteid}`;
+  const visits = axios({
+    method: "get",
+    url: visitsURL,
+    headers: {
+      "Content-Type": "application/json",
+      "cache-control": "no-cache",
+    },
+  })
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      console.log(error);
+      return error;
+    });
 
-    return visits;
+  return visits;
 };
 
 export default getVisits;

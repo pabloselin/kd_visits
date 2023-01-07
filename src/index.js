@@ -4,10 +4,11 @@ import './index.css';
 import VisitsApp from './VisitsApp';
 import reportWebVitals from './reportWebVitals';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('visits_app'));
+const siteID = document.getElementById('visits_app').dataset.siteid;
 root.render(
   <React.StrictMode>
-    <VisitsApp />
+    <VisitsApp siteid={siteID} />
   </React.StrictMode>
 );
 

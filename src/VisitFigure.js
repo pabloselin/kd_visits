@@ -12,12 +12,14 @@ const randomPos = () => {
 const VisitFigure = (props) => {
   const [isMouseOver, setIsMouseOver] = useState(false);
   const [pos, setPos] = useState(randomPos());
-  
+  const [angle, setAngle] = useState(0);
   const hour = props.time.getHours();
   const month = props.time.getMonth();
   const IP = props.data.ip.split(",")[0];
   const UserAgent = props.data.visitor_data.visitor_data.userAgent;
-  
+  const carbonIntensity = props.data.carbon_intensity.carbon_intensity * 0.005;
+  console.log(carbonIntensity, 'co2i');
+
   const UserType = () => {
     if (UserAgent.includes("Android")) {
       return "Android";
@@ -27,6 +29,8 @@ const VisitFigure = (props) => {
       return "Windows";
     } else if(UserAgent.includes("Macintosh")) {
       return "Macintosh";
+    } else if(UserAgent.includes("Linux")) {
+      return "Linux";
     } else {
       return "Unknown";
     }
@@ -44,14 +48,17 @@ const VisitFigure = (props) => {
 
   const randomMovement = (isMoving) => {
     if (LineRef.current) {
-      console.log(LineRef);
       LineRef.current.to({
         x: randomPos()[0],
         y: randomPos()[1],
         easing: Konva.Easings.EaseInOut,
         points: randomPoints(),
-        rotate: 10,
+        rotate: angle,
         duration: isMoving ? 1 : 5 + Math.random() * 2,
+        onUpdate: () => {
+          let newAngle = angle + Math.random * 2;
+          setAngle(newAngle);
+        },
         onFinish: () => {
           randomMovement();
         },
@@ -62,7 +69,7 @@ const VisitFigure = (props) => {
   const randomPoints = () => {
     const newPoints = [];
 
-    shapePoints().map((point) => {
+    shapePoints().forEach((point) => {
       newPoints.push(point + Math.random() * 1);
     });
 
@@ -79,7 +86,7 @@ const VisitFigure = (props) => {
       pos2,
       pos3,
       pos4,
-      pos5 = new Array();
+      pos5 = [];
     
 
     pos1 = IpMultiplier([0, 7.5], 0);
@@ -111,6 +118,10 @@ const VisitFigure = (props) => {
     randomPoints();
   }, [props.isMoving]);
 
+  useEffect(() => {
+    LineRef.current.cache();
+  });
+
   return (
     <>
       <Line
@@ -124,10 +135,13 @@ const VisitFigure = (props) => {
         fill={`hsl(${monthToTone(month)}, 100%, ${hourToLuminosity(hour)}%)`}
         tension={0.4}
         opacity={1}
-        scaleX={isMobile ? 1 : 0.8}
-        scaleY={isMobile ? 1 : 0.8}
+        scaleX={isMobile ? 0.5 : 1.5}
+        scaleY={isMobile ? 0.5 : 1.5}
         onMouseOver={handleMouseOver}
         onMouseOut={() => setIsMouseOver(false)}
+        shadowBlur={10}
+        filters={[Konva.Filters.Noise]}
+        noise={carbonIntensity}
       />
       {isMouseOver && (
         <Group>
