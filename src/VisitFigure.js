@@ -108,9 +108,12 @@ const VisitFigure = (props) => {
   };
 
   const handleMouseOver = (e) => {
-    console.log(e.target.index);
-    //setIsMouseOver(true);
+    props.passActiveVisit({ip: IP, userAgent: UserAgent, carbonIntensity: carbonIntensity});
   };
+
+  const handleMouseOut = (e) => {
+    console.log('mouseout');
+  }
 
   useEffect(() => {
     setPos(randomPos());
@@ -138,28 +141,12 @@ const VisitFigure = (props) => {
         scaleX={isMobile ? 0.5 : 1.5}
         scaleY={isMobile ? 0.5 : 1.5}
         onMouseOver={handleMouseOver}
-        onMouseOut={() => setIsMouseOver(false)}
+        onMouseOut={handleMouseOut}
         shadowBlur={10}
         filters={[Konva.Filters.Noise]}
         noise={carbonIntensity}
       />
-      {isMouseOver && (
-        <Group>
-          <Rect
-            x={pos[0] + 15}
-            y={pos[1] + 15}
-            width={20}
-            height={20}
-            fill="white"
-          />
-          <Text
-            x={pos[0] + 15}
-            y={pos[1] + 15}
-            text={`Hora: ${hour}`}
-            fontSize={9}
-          />
-        </Group>
-      )}
+      
     </>
   );
 };

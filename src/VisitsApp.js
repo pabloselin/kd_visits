@@ -7,13 +7,12 @@ import VisitCanvas from "./VisitCanvas";
 
 function VisitsApp(props) {
   const [visits, setVisits] = useState(null);
-  const [infoVisible, setInfoVisible] = useState(false);
   const [palimpsesto, setPalimpsesto] = useState(false);
 
   useEffect(() => {
     if (visits === null) {
       const visitsData = getVisits(props.siteid);
-      console.log(visitsData);
+    
       visitsData.then((visits) => {
         const visitsArr = [];
         visits.data.forEach((visit) => {
@@ -34,14 +33,10 @@ function VisitsApp(props) {
   return (
     <main className="main VisitsApp">
       <header className="fixed_kit_header">
+        <div>
         <h1>
-          Representación de visitas a una web{" "}
-          <span
-            className="infoToggle"
-            onClick={() => setInfoVisible(!infoVisible)}
-          >
-            [?]
-          </span>
+          Rastro de visitas
+          
         </h1>
         {visits && (
           <p>
@@ -50,18 +45,21 @@ function VisitsApp(props) {
             <TrackVisit siteid={1} trackurl={window.location.href} />
           </p>
         )}
-        <div className={`info ${infoVisible ? "expanded" : "hidden"}`}>
-          <h2>Notas</h2>
-          <p>Cada símbolo representa una visita a esta web.</p>
+      
+        </div>
+       
+        <div className={`info expanded`}>
+          <p><strong>Cada una de las figuras moviéndose representa una visita a esta web.</strong></p>
+          <p>La forma se genera según los datos que deja la persona (o bot) al acceder al sitio.</p>
           <ul>
             <li>El tono del color cambia según el mes.</li>
             <li>La luminosidad corresponde a la hora de la visita.</li>
             <li>
-              La forma del símbolo se genera a partir de la IP y el tipo de
+              La forma de la figura se genera a partir de la IP y el tipo de
               dispositivo.
             </li>
             <li>
-              El ruido visual se genera a partir del índice de intensidad de la
+              El ruido sobre la figura corresponde al índice de intensidad de carbono de la
               matriz energética del país de origen de la visita.
             </li>
           </ul>

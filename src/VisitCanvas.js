@@ -5,6 +5,7 @@ import VisitFigure from "./VisitFigure";
 const VisitsCanvas = (props) => {
 
   const [size, setSize] = useState([10, 10]); 
+  const [activeVisit, setActiveVisit] = useState(null);
   
   useEffect(() => {
     if(props.palimpsesto === true) {
@@ -13,6 +14,10 @@ const VisitsCanvas = (props) => {
       setSize([10, 10]);
     }
   }, [props.palimpsesto]);
+
+  const handleSetActiveVisit = (visit) => {
+    setActiveVisit(visit);
+  }
 
   return (
     <Stage className="kd_konva_canvas" width={window.innerWidth} height={window.innerHeight}>
@@ -26,6 +31,7 @@ const VisitsCanvas = (props) => {
               key={index}
               width={size[0]}
               height={size[1]}
+              passActiveVisit={(visit) => {handleSetActiveVisit(visit)}}
             />
           );
         })}
