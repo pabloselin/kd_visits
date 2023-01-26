@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import Konva from "konva";
-import { Line, Text, Rect, Group } from "react-konva";
+import { Line } from "react-konva";
 
 const randomPos = () => {
   return [
@@ -126,7 +126,7 @@ const VisitFigure = (props) => {
   });
 
   return (
-    <>
+    
       <Line
         ref={LineRef}
         x={pos[0]}
@@ -147,7 +147,7 @@ const VisitFigure = (props) => {
         noise={carbonIntensity}
       />
       
-    </>
+    
   );
 };
 
